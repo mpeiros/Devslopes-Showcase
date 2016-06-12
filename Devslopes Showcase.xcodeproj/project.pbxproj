@@ -12,9 +12,25 @@
 		70258D071CFF94EC00D85143 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70258D051CFF94EC00D85143 /* Main.storyboard */; };
 		70258D091CFF94EC00D85143 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70258D081CFF94EC00D85143 /* Assets.xcassets */; };
 		70258D0C1CFF94EC00D85143 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70258D0A1CFF94EC00D85143 /* LaunchScreen.storyboard */; };
+		70258D1B1CFF953E00D85143 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70258D171CFF953E00D85143 /* NotoSans-Bold.ttf */; };
+		70258D1C1CFF953E00D85143 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70258D181CFF953E00D85143 /* NotoSans-BoldItalic.ttf */; };
+		70258D1D1CFF953E00D85143 /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70258D191CFF953E00D85143 /* NotoSans-Italic.ttf */; };
+		70258D1E1CFF953E00D85143 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70258D1A1CFF953E00D85143 /* NotoSans-Regular.ttf */; };
+		70258D201CFF993B00D85143 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D1F1CFF993B00D85143 /* MaterialView.swift */; };
+		70258D231CFF998900D85143 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D221CFF998900D85143 /* Constants.swift */; };
+		70258D251CFF9E5C00D85143 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D241CFF9E5C00D85143 /* MaterialButton.swift */; };
+		70258D271CFFA46C00D85143 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D261CFFA46C00D85143 /* MaterialTextField.swift */; };
+		705203CF1D0A1EFD0095A865 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705203CE1D0A1EFD0095A865 /* Post.swift */; };
+		7065D5B31D092B9F004F382C /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065D5B21D092B9E004F382C /* FeedVC.swift */; };
+		7065D5B51D092C75004F382C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065D5B41D092C75004F382C /* PostCell.swift */; };
+		707070271D00EF5A001EFC56 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707070261D00EF5A001EFC56 /* DataService.swift */; };
+		7085F4991D00D78B00181179 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7085F4981D00D78B00181179 /* GoogleService-Info.plist */; };
+		87D0F002DC29092466FFEC58 /* Pods_Devslopes_Showcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1DE0BABFB01CE7054EEFBA /* Pods_Devslopes_Showcase.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F1DE0BABFB01CE7054EEFBA /* Pods_Devslopes_Showcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Devslopes_Showcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3564C4732F84F31299423161 /* Pods-Devslopes Showcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Devslopes Showcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase.release.xcconfig"; sourceTree = "<group>"; };
 		70258CFE1CFF94EC00D85143 /* Devslopes Showcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Devslopes Showcase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70258D011CFF94EC00D85143 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70258D031CFF94EC00D85143 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +38,20 @@
 		70258D081CFF94EC00D85143 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70258D0B1CFF94EC00D85143 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70258D0D1CFF94EC00D85143 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70258D171CFF953E00D85143 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		70258D181CFF953E00D85143 /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		70258D191CFF953E00D85143 /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Italic.ttf"; sourceTree = "<group>"; };
+		70258D1A1CFF953E00D85143 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		70258D1F1CFF993B00D85143 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		70258D221CFF998900D85143 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		70258D241CFF9E5C00D85143 /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
+		70258D261CFFA46C00D85143 /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
+		705203CE1D0A1EFD0095A865 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		7065D5B21D092B9E004F382C /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		7065D5B41D092C75004F382C /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		707070261D00EF5A001EFC56 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		7085F4981D00D78B00181179 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F815CB80CACFB7B8CBA6909A /* Pods-Devslopes Showcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Devslopes Showcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +59,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87D0F002DC29092466FFEC58 /* Pods_Devslopes_Showcase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FC8F4EFF468C3C1BD474042 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0F1DE0BABFB01CE7054EEFBA /* Pods_Devslopes_Showcase.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		70258CF51CFF94EC00D85143 = {
 			isa = PBXGroup;
 			children = (
 				70258D001CFF94EC00D85143 /* Devslopes Showcase */,
 				70258CFF1CFF94EC00D85143 /* Products */,
+				CCF8B007DBE757E48D304611 /* Pods */,
+				6FC8F4EFF468C3C1BD474042 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +95,84 @@
 		70258D001CFF94EC00D85143 /* Devslopes Showcase */ = {
 			isa = PBXGroup;
 			children = (
+				707070251D00EF3D001EFC56 /* Services */,
+				70258D211CFF997300D85143 /* Util */,
+				70258D161CFF952400D85143 /* Resources */,
+				70258D151CFF951D00D85143 /* Model */,
+				70258D141CFF951700D85143 /* View */,
+				70258D131CFF950B00D85143 /* Controller */,
 				70258D011CFF94EC00D85143 /* AppDelegate.swift */,
-				70258D031CFF94EC00D85143 /* ViewController.swift */,
 				70258D051CFF94EC00D85143 /* Main.storyboard */,
 				70258D081CFF94EC00D85143 /* Assets.xcassets */,
 				70258D0A1CFF94EC00D85143 /* LaunchScreen.storyboard */,
 				70258D0D1CFF94EC00D85143 /* Info.plist */,
+				7085F4981D00D78B00181179 /* GoogleService-Info.plist */,
 			);
 			path = "Devslopes Showcase";
+			sourceTree = "<group>";
+		};
+		70258D131CFF950B00D85143 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				70258D031CFF94EC00D85143 /* ViewController.swift */,
+				7065D5B21D092B9E004F382C /* FeedVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		70258D141CFF951700D85143 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				70258D1F1CFF993B00D85143 /* MaterialView.swift */,
+				70258D241CFF9E5C00D85143 /* MaterialButton.swift */,
+				70258D261CFFA46C00D85143 /* MaterialTextField.swift */,
+				7065D5B41D092C75004F382C /* PostCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		70258D151CFF951D00D85143 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				705203CE1D0A1EFD0095A865 /* Post.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		70258D161CFF952400D85143 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				70258D171CFF953E00D85143 /* NotoSans-Bold.ttf */,
+				70258D181CFF953E00D85143 /* NotoSans-BoldItalic.ttf */,
+				70258D191CFF953E00D85143 /* NotoSans-Italic.ttf */,
+				70258D1A1CFF953E00D85143 /* NotoSans-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		70258D211CFF997300D85143 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				70258D221CFF998900D85143 /* Constants.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		707070251D00EF3D001EFC56 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				707070261D00EF5A001EFC56 /* DataService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		CCF8B007DBE757E48D304611 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F815CB80CACFB7B8CBA6909A /* Pods-Devslopes Showcase.debug.xcconfig */,
+				3564C4732F84F31299423161 /* Pods-Devslopes Showcase.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +182,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70258D101CFF94EC00D85143 /* Build configuration list for PBXNativeTarget "Devslopes Showcase" */;
 			buildPhases = (
+				5A476AD21F37D095EA476DC6 /* 📦 Check Pods Manifest.lock */,
 				70258CFA1CFF94EC00D85143 /* Sources */,
 				70258CFB1CFF94EC00D85143 /* Frameworks */,
 				70258CFC1CFF94EC00D85143 /* Resources */,
+				4A4495C6F96C9A9B1BC0C66D /* 📦 Embed Pods Frameworks */,
+				16304F217F98D4AF79ADCA5F /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -122,21 +236,82 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70258D1B1CFF953E00D85143 /* NotoSans-Bold.ttf in Resources */,
+				7085F4991D00D78B00181179 /* GoogleService-Info.plist in Resources */,
 				70258D0C1CFF94EC00D85143 /* LaunchScreen.storyboard in Resources */,
+				70258D1C1CFF953E00D85143 /* NotoSans-BoldItalic.ttf in Resources */,
+				70258D1D1CFF953E00D85143 /* NotoSans-Italic.ttf in Resources */,
 				70258D091CFF94EC00D85143 /* Assets.xcassets in Resources */,
 				70258D071CFF94EC00D85143 /* Main.storyboard in Resources */,
+				70258D1E1CFF953E00D85143 /* NotoSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16304F217F98D4AF79ADCA5F /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A4495C6F96C9A9B1BC0C66D /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A476AD21F37D095EA476DC6 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		70258CFA1CFF94EC00D85143 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70258D271CFFA46C00D85143 /* MaterialTextField.swift in Sources */,
+				707070271D00EF5A001EFC56 /* DataService.swift in Sources */,
+				70258D201CFF993B00D85143 /* MaterialView.swift in Sources */,
 				70258D041CFF94EC00D85143 /* ViewController.swift in Sources */,
+				7065D5B31D092B9F004F382C /* FeedVC.swift in Sources */,
+				7065D5B51D092C75004F382C /* PostCell.swift in Sources */,
 				70258D021CFF94EC00D85143 /* AppDelegate.swift in Sources */,
+				70258D231CFF998900D85143 /* Constants.swift in Sources */,
+				70258D251CFF9E5C00D85143 /* MaterialButton.swift in Sources */,
+				705203CF1D0A1EFD0095A865 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,8 +424,10 @@
 		};
 		70258D111CFF94EC00D85143 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F815CB80CACFB7B8CBA6909A /* Pods-Devslopes Showcase.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Devslopes Showcase/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.maxpeiros.Devslopes-Showcase";
@@ -260,8 +437,10 @@
 		};
 		70258D121CFF94EC00D85143 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3564C4732F84F31299423161 /* Pods-Devslopes Showcase.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Devslopes Showcase/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.maxpeiros.Devslopes-Showcase";
@@ -288,6 +467,7 @@
 				70258D121CFF94EC00D85143 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
