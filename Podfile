@@ -9,9 +9,9 @@ target 'Devslopes Showcase' do
   pod 'Firebase'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  pod 'Bolts'
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
-  pod 'Alamofire', '~> 3.4'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+  pod 'Alamofire', '~> 4.0'
 
 end

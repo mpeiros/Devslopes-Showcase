@@ -46,6 +46,7 @@
 		70258D221CFF998900D85143 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		70258D241CFF9E5C00D85143 /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		70258D261CFFA46C00D85143 /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
+		702E55C51DE254E7008B0200 /* Devslopes Showcase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Devslopes Showcase.entitlements"; sourceTree = "<group>"; };
 		705203CE1D0A1EFD0095A865 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		7065D5B21D092B9E004F382C /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		7065D5B41D092C75004F382C /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		70258D001CFF94EC00D85143 /* Devslopes Showcase */ = {
 			isa = PBXGroup;
 			children = (
+				702E55C51DE254E7008B0200 /* Devslopes Showcase.entitlements */,
 				707070251D00EF3D001EFC56 /* Services */,
 				70258D211CFF997300D85143 /* Util */,
 				70258D161CFF952400D85143 /* Resources */,
@@ -182,12 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70258D101CFF94EC00D85143 /* Build configuration list for PBXNativeTarget "Devslopes Showcase" */;
 			buildPhases = (
-				5A476AD21F37D095EA476DC6 /* 📦 Check Pods Manifest.lock */,
+				5A476AD21F37D095EA476DC6 /* [CP] Check Pods Manifest.lock */,
 				70258CFA1CFF94EC00D85143 /* Sources */,
 				70258CFB1CFF94EC00D85143 /* Frameworks */,
 				70258CFC1CFF94EC00D85143 /* Resources */,
-				4A4495C6F96C9A9B1BC0C66D /* 📦 Embed Pods Frameworks */,
-				16304F217F98D4AF79ADCA5F /* 📦 Copy Pods Resources */,
+				4A4495C6F96C9A9B1BC0C66D /* [CP] Embed Pods Frameworks */,
+				16304F217F98D4AF79ADCA5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -211,6 +213,12 @@
 					70258CFD1CFF94EC00D85143 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = WRD8ABT3AF;
+						LastSwiftMigration = 0810;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -251,14 +259,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		16304F217F98D4AF79ADCA5F /* 📦 Copy Pods Resources */ = {
+		16304F217F98D4AF79ADCA5F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,14 +274,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A4495C6F96C9A9B1BC0C66D /* 📦 Embed Pods Frameworks */ = {
+		4A4495C6F96C9A9B1BC0C66D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,19 +289,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Devslopes Showcase/Pods-Devslopes Showcase-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A476AD21F37D095EA476DC6 /* 📦 Check Pods Manifest.lock */ = {
+		5A476AD21F37D095EA476DC6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -382,6 +390,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -423,6 +432,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -434,6 +444,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Devslopes Showcase/Devslopes Showcase.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Devslopes Showcase/Info.plist";
@@ -441,6 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.maxpeiros.Devslopes-Showcase";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "89d31a14-0f82-4faf-a258-b64d5d3e8682";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -450,6 +462,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Devslopes Showcase/Devslopes Showcase.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Max Peiros (SZX4CQX86M)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Devslopes Showcase/Info.plist";
@@ -457,6 +470,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.maxpeiros.Devslopes-Showcase";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "89d31a14-0f82-4faf-a258-b64d5d3e8682";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

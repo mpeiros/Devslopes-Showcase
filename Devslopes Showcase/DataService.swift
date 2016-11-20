@@ -14,9 +14,9 @@ let URL_BASE = FIRDatabase.database().reference()
 class DataService {
     static let ds = DataService()
     
-    private var _REF_BASE = URL_BASE
-    private var _REF_POSTS = URL_BASE.child("posts")
-    private var _REF_USERS = URL_BASE.child("users")
+    fileprivate var _REF_BASE = URL_BASE
+    fileprivate var _REF_POSTS = URL_BASE.child("posts")
+    fileprivate var _REF_USERS = URL_BASE.child("users")
     
     var REF_BASE: FIRDatabaseReference {
         return _REF_BASE
@@ -31,12 +31,12 @@ class DataService {
     }
     
     var REF_USER_CURRENT: FIRDatabaseReference {
-        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = REF_USERS.child(uid)
         return user
     }
     
-    func createFirebaseUser(uid: String, userData: Dictionary<String, String>) {
+    func createFirebaseUser(_ uid: String, userData: Dictionary<String, String>) {
         REF_USERS.child(uid).setValue(userData)
     }
     
