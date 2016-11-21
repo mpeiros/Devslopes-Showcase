@@ -18,12 +18,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     var posts = [Post]()
     var imageSelected = false
-    static var imageCache = NSCache()
+    static var imageCache = NSCache<AnyObject, AnyObject>()
     
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Your Feed"
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,8 +35,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
+        DataService.ds.REF_POSTS.observe(.value, with: { snapshot in
+            print(snapshot.value!)
             
             self.posts = []
             
@@ -58,26 +60,26 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let post = posts[indexPath.row]
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as? PostCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
             
             cell.request?.cancel()
             
             var img: UIImage?
             
             if let url = post.imageUrl {
-                img = FeedVC.imageCache.objectForKey(url) as? UIImage
+                img = FeedVC.imageCache.object(forKey: url as AnyObject) as? UIImage
             }
             
             cell.configureCell(post, img: img)
@@ -88,7 +90,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let post = posts[indexPath.row]
         
@@ -99,68 +101,69 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        imagePicker.dismiss(animated: true, completion: nil)
         imageSelectorImage.image = image
         imageSelected = true
     }
     
-    @IBAction func selectImage(sender: UITapGestureRecognizer) {
-        presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func makePost(sender: AnyObject) {
+    @IBAction func makePost(_ sender: AnyObject) {
         
-        if let txt = postField.text where txt != "" {
+        if let txt = postField.text, txt != "" {
             
-            if let img = imageSelectorImage.image where imageSelected == true {
-                let urlStr = "https://post.imageshack.us/upload_api.php"
-                let url = NSURL(string: urlStr)!
+            if let img = imageSelectorImage.image, imageSelected == true {
+                let url = "https://post.imageshack.us/upload_api.php"
                 let imgData = UIImageJPEGRepresentation(img, 0.2)!
-                let keyData = "12DJKPSU5fc3afbd01b1630cc718cae3043220f3".dataUsingEncoding(NSUTF8StringEncoding)!
-                let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
+                let keyData = "12DJKPSU5fc3afbd01b1630cc718cae3043220f3".data(using: String.Encoding.utf8)!
+                let keyJSON = "json".data(using: String.Encoding.utf8)!
                 
-                Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
+                Alamofire.upload(multipartFormData: { (multipartFormData) in
                     
-                    multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpeg")
-                    multipartFormData.appendBodyPart(data: keyData, name: "key")
-                    multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+                    multipartFormData.append(imgData, withName: "fileupload", fileName: "image", mimeType: "image/jpeg")
+                    multipartFormData.append(keyData, withName: "key")
+                    multipartFormData.append(keyJSON, withName: "format")
                     
-                }) { encodingResult in
+                    },
+                    to: url,
+                    encodingCompletion: { (encodingResult) in
                     
-                    switch encodingResult {
-                    case .Success(let upload, _, _):
-                        upload.responseJSON(completionHandler: { response in
-                            if let info = response.result.value as? Dictionary<String, AnyObject> {
-                                
-                                if let links = info["links"] as? Dictionary<String, AnyObject> {
-                                    if let imgLink = links["image_link"] as? String {
-                                        print("LINK: \(imgLink)")
-                                        self.postToFirebase(imgLink)
+                        switch encodingResult {
+                        case .success(let upload, _, _):
+                            upload.responseJSON { response in
+                                if let info = response.result.value as? Dictionary<String, AnyObject> {
+                                    
+                                    if let links = info["links"] as? Dictionary<String, AnyObject> {
+                                        if let imgLink = links["image_link"] as? String {
+                                            print("LINK: \(imgLink)")
+                                            self.postToFirebase(imgLink)
+                                        }
                                     }
                                 }
-                                
                             }
-                        })
-                    case .Failure(let error):
-                        print(error)
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
-                        
-                }
+                )
+                
             } else {
                 self.postToFirebase(nil)
             }
         }
     }
     
-    func postToFirebase(imgUrl: String?) {
+    func postToFirebase(_ imgUrl: String?) {
         var post: Dictionary<String, AnyObject> = [
-            "description": postField.text!,
-            "likes": 0
+            "description": postField.text! as AnyObject,
+            "likes": 0 as AnyObject
         ]
         
         if imgUrl != nil {
-            post["imageUrl"] = imgUrl!
+            post["imageUrl"] = imgUrl! as AnyObject?
         }
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
@@ -173,26 +176,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         tableView.reloadData()
     }
     
+    @IBAction func signOutPressed(_ sender: Any) {
+        do {
+            try FIRAuth.auth()!.signOut()
+            
+            if FIRAuth.auth()!.currentUser == nil {
+                UserDefaults.standard.setValue(nil, forKey: KEY_CURRENT_USER_UID)
+                self.navigationController!.dismiss(animated: true, completion: nil)
+            }
+        } catch {
+            print("error signing out")
+        }
+    }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

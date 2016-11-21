@@ -18,75 +18,83 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-            self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+        if UserDefaults.standard.value(forKey: KEY_CURRENT_USER_UID) != nil {
+            self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
     }
     
-    @IBAction func fbBtnPressed(sender: UIButton!) {
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        emailField.text = ""
+        passwordField.text = ""
+    }
+    
+    @IBAction func fbBtnPressed(_ sender: UIButton!) {
         let facebookLogin = FBSDKLoginManager()
         
-        facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) in
+        facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             
-            if facebookError != nil {
-                print("Facebook login failed. Error \(facebookError)")
+            if error != nil {
+                print("Facebook login failed. Error \(error)")
             } else {
-                let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+                let accessToken = FBSDKAccessToken.current().tokenString
                 print("Successfully logged in with Facebook. \(accessToken)")
                 
-                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 
-                FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
+                FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
                     
                     if error != nil {
                         print("Login failed. \(error)")
                     } else {
                         print("Logged in! \(user)")
                         
-                        let userData = ["provider": credential.provider]
-                        DataService.ds.createFirebaseUser(user!.uid, userData: userData)
+                        DataService.ds.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
+                            
+                            if !snapshot.hasChild(user!.uid) {
+                                let userData = ["provider": credential.provider]
+                                DataService.ds.createFirebaseUser(user!.uid, userData: userData)
+                            }
+                        })
                         
-                        NSUserDefaults.standardUserDefaults().setValue(user?.uid, forKey: KEY_UID)
-                        self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+                        UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
+                        self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                     }
-                    
                 })
-                
             }
         }
     }
     
-    @IBAction func attemptLogin(sender: UIButton!) {
+    @IBAction func attemptLogin(_ sender: UIButton!) {
         
-        if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
+        if let email = emailField.text, email != "", let pwd = passwordField.text, pwd != "" {
             
-            FIRAuth.auth()?.signInWithEmail(email, password: pwd, completion: { (user, error) in
+            FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user, error) in
                 
                 if error != nil {
                     
-                    print(error)
+                    print(error!)
                     
-                    if error!.code == STATUS_ACCOUNT_NONEXIST {
+                    if error!._code == STATUS_ACCOUNT_NONEXIST {
                         
-                        FIRAuth.auth()?.createUserWithEmail(email, password: pwd, completion: { (user, error) in
-                            
-                            print(error)
+                        FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
                             
                             if error != nil {
+                                print(error!)
                                 self.showErrorAlert("Could not create account.", msg: "Problem creating account. Try something else.")
                             } else {
-                                NSUserDefaults.standardUserDefaults().setValue(user?.uid, forKey: KEY_UID)
+                                UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
                                 
                                 let userData = ["provider": "email"]
                                 DataService.ds.createFirebaseUser(user!.uid, userData: userData)
                                 
-                                self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+                                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                             }
                             
                         })
@@ -96,9 +104,9 @@ class ViewController: UIViewController {
                     }
                     
                 } else {
-                    self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)
+                    UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
+                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 }
-                
             })
             
         } else {
@@ -106,11 +114,11 @@ class ViewController: UIViewController {
         }
     }
     
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+    func showErrorAlert(_ title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 
 }

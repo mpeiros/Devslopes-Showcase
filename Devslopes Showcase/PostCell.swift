@@ -28,18 +28,18 @@ class PostCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped(_:)))
         tap.numberOfTapsRequired = 1
         likeImage.addGestureRecognizer(tap)
-        likeImage.userInteractionEnabled = true
+        likeImage.isUserInteractionEnabled = true
         
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
         profileImg.clipsToBounds = true
         
         showcaseImg.clipsToBounds = true
     }
 
-    func configureCell(post: Post, img: UIImage?) {
+    func configureCell(_ post: Post, img: UIImage?) {
         self.post = post
         
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
@@ -51,27 +51,26 @@ class PostCell: UITableViewCell {
             
             if img != nil {
                 self.showcaseImg.image = img
-                self.showcaseImg.hidden = false
+                self.showcaseImg.isHidden = false
             } else {
                 
-                request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
+                request = Alamofire.request(post.imageUrl!).validate(contentType: ["image/*"]).responseData(completionHandler: { response in
                     
-                    if err == nil {
-                        let img = UIImage(data: data!)!
-                        self.showcaseImg.image = img
-                        self.showcaseImg.hidden = false
-                        FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl!)
+                    if let data = response.result.value {
+                        if let img = UIImage(data: data) {
+                            self.showcaseImg.image = img
+                            self.showcaseImg.isHidden = false
+                            FeedVC.imageCache.setObject(img, forKey: self.post.imageUrl! as AnyObject)
+                        }
                     }
-                    
                 })
-                
             }
             
         } else {
-            self.showcaseImg.hidden = true
+            self.showcaseImg.isHidden = true
         }
         
-        likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             
             if let doesNotExist = snapshot.value as? NSNull {
                 // This means we have not liked this specific post
@@ -85,8 +84,8 @@ class PostCell: UITableViewCell {
         
     }
     
-    func likeTapped(sender: UITapGestureRecognizer) {
-        likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    func likeTapped(_ sender: UITapGestureRecognizer) {
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             
             if let doesNotExist = snapshot.value as? NSNull {
                 self.likeImage.image = UIImage(named: "heart-full")
