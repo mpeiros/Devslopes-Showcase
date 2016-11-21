@@ -18,15 +18,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if UserDefaults.standard.value(forKey: KEY_UID) != nil {
+        if UserDefaults.standard.value(forKey: KEY_CURRENT_USER_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        emailField.text = ""
+        passwordField.text = ""
     }
     
     @IBAction func fbBtnPressed(_ sender: UIButton!) {
@@ -38,7 +44,7 @@ class ViewController: UIViewController {
                 print("Facebook login failed. Error \(error)")
             } else {
                 let accessToken = FBSDKAccessToken.current().tokenString
-                print("Successfully logge in with Facebook. \(accessToken)")
+                print("Successfully logged in with Facebook. \(accessToken)")
                 
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 
@@ -49,10 +55,15 @@ class ViewController: UIViewController {
                     } else {
                         print("Logged in! \(user)")
                         
-                        let userData = ["provider": credential.provider]
-                        DataService.ds.createFirebaseUser(user!.uid, userData: userData)
+                        DataService.ds.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
+                            
+                            if !snapshot.hasChild(user!.uid) {
+                                let userData = ["provider": credential.provider]
+                                DataService.ds.createFirebaseUser(user!.uid, userData: userData)
+                            }
+                        })
                         
-                        UserDefaults.standard.setValue(user?.uid, forKey: KEY_UID)
+                        UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
                         self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                     }
                 })
@@ -78,7 +89,7 @@ class ViewController: UIViewController {
                                 print(error!)
                                 self.showErrorAlert("Could not create account.", msg: "Problem creating account. Try something else.")
                             } else {
-                                UserDefaults.standard.setValue(user?.uid, forKey: KEY_UID)
+                                UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
                                 
                                 let userData = ["provider": "email"]
                                 DataService.ds.createFirebaseUser(user!.uid, userData: userData)
@@ -93,9 +104,9 @@ class ViewController: UIViewController {
                     }
                     
                 } else {
+                    UserDefaults.standard.setValue(user?.uid, forKey: KEY_CURRENT_USER_UID)
                     self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 }
-                
             })
             
         } else {

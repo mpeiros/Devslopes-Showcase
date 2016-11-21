@@ -24,6 +24,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Your Feed"
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -174,26 +176,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         tableView.reloadData()
     }
     
+    @IBAction func signOutPressed(_ sender: Any) {
+        do {
+            try FIRAuth.auth()!.signOut()
+            
+            if FIRAuth.auth()!.currentUser == nil {
+                UserDefaults.standard.setValue(nil, forKey: KEY_CURRENT_USER_UID)
+                self.navigationController!.dismiss(animated: true, completion: nil)
+            }
+        } catch {
+            print("error signing out")
+        }
+    }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

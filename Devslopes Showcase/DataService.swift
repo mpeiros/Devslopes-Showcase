@@ -31,7 +31,7 @@ class DataService {
     }
     
     var REF_USER_CURRENT: FIRDatabaseReference {
-        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        let uid = FIRAuth.auth()!.currentUser!.uid
         let user = REF_USERS.child(uid)
         return user
     }
