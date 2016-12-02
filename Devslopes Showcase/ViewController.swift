@@ -11,13 +11,16 @@ import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var emailField: MaterialTextField!
+    @IBOutlet weak var passwordField: MaterialTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailField.delegate = self
+        passwordField.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,6 +115,11 @@ class ViewController: UIViewController {
         } else {
             showErrorAlert("Email and password required.", msg: "You must enter an email and a password.")
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func showErrorAlert(_ title: String, msg: String) {

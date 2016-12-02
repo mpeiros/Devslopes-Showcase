@@ -17,6 +17,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     var post: Post!
     var request: Request?
@@ -43,6 +44,12 @@ class PostCell: UITableViewCell {
         self.post = post
         
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
+        
+        if post.username != nil {
+            self.usernameLabel.text = post.username
+        } else {
+            self.usernameLabel.text = "Anonymous"
+        }
         
         self.descriptionText.text = post.postDescription
         self.likesLbl.text = "\(post.likes)"

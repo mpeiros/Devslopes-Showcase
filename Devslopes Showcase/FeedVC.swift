@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import Alamofire
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var postField: MaterialTextField!
@@ -20,13 +20,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     var imageSelected = false
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
+    var username: String?
+    
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Your Feed"
 
+        title = "Your Feed"
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -35,29 +37,40 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        DataService.ds.REF_POSTS.observe(.value, with: { snapshot in
-            print(snapshot.value!)
+        postField.delegate = self
+        
+        DataService.ds.REF_USER_CURRENT.child("username").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() {
+                self.username = snapshot.value! as? String
+                print("\(self.username!)")
+            }
+        })
+        
+        let query = DataService.ds.REF_POSTS.queryOrdered(byChild: "timestamp")
+        
+        query.observe(.value, with: { snapshot in
+            // print(snapshot.value!)
             
             self.posts = []
             
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 
                 for snap in snapshots {
-                    print("SNAP: \(snap)")
+                    // print("SNAP: \(snap)")
                     
                     if let postDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, dictionary: postDict)
                         self.posts.append(post)
                     }
-                    
                 }
-                
             }
+            
+            self.posts = self.posts.reversed()
             
             self.tableView.reloadData()
         })
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -162,14 +175,29 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             "likes": 0 as AnyObject
         ]
         
+        if username != nil {
+            post["username"] = username! as AnyObject
+        } 
+     
         if imgUrl != nil {
-            post["imageUrl"] = imgUrl! as AnyObject?
+            post["imageUrl"] = imgUrl! as AnyObject
         }
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        let timestamp = formatter.string(from: date)
+        
+        post["timestamp"] = timestamp as AnyObject
+        
+        print(post)
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
         firebasePost.setValue(post)
         
         postField.text = ""
+        postField.resignFirstResponder()
         imageSelectorImage.image = UIImage(named: "camera")
         imageSelected = false
         
@@ -189,5 +217,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+  
 }
 

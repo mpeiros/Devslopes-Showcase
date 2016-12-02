@@ -20,6 +20,7 @@
 		70258D231CFF998900D85143 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D221CFF998900D85143 /* Constants.swift */; };
 		70258D251CFF9E5C00D85143 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D241CFF9E5C00D85143 /* MaterialButton.swift */; };
 		70258D271CFFA46C00D85143 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70258D261CFFA46C00D85143 /* MaterialTextField.swift */; };
+		702E55C71DE3BE7A008B0200 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702E55C61DE3BE7A008B0200 /* ProfileVC.swift */; };
 		705203CF1D0A1EFD0095A865 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705203CE1D0A1EFD0095A865 /* Post.swift */; };
 		7065D5B31D092B9F004F382C /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065D5B21D092B9E004F382C /* FeedVC.swift */; };
 		7065D5B51D092C75004F382C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065D5B41D092C75004F382C /* PostCell.swift */; };
@@ -47,6 +48,7 @@
 		70258D241CFF9E5C00D85143 /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		70258D261CFFA46C00D85143 /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		702E55C51DE254E7008B0200 /* Devslopes Showcase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Devslopes Showcase.entitlements"; sourceTree = "<group>"; };
+		702E55C61DE3BE7A008B0200 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		705203CE1D0A1EFD0095A865 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		7065D5B21D092B9E004F382C /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		7065D5B41D092C75004F382C /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				70258D031CFF94EC00D85143 /* ViewController.swift */,
 				7065D5B21D092B9E004F382C /* FeedVC.swift */,
+				702E55C61DE3BE7A008B0200 /* ProfileVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				70258D021CFF94EC00D85143 /* AppDelegate.swift in Sources */,
 				70258D231CFF998900D85143 /* Constants.swift in Sources */,
 				70258D251CFF9E5C00D85143 /* MaterialButton.swift in Sources */,
+				702E55C71DE3BE7A008B0200 /* ProfileVC.swift in Sources */,
 				705203CF1D0A1EFD0095A865 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
