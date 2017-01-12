@@ -40,7 +40,7 @@ class PostCell: UITableViewCell {
         showcaseImg.clipsToBounds = true
     }
 
-    func configureCell(_ post: Post, img: UIImage?) {
+    func configureCell(_ post: Post, img: UIImage?, profileImg: UIImage?) {
         self.post = post
         
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
@@ -49,6 +49,27 @@ class PostCell: UITableViewCell {
             self.usernameLabel.text = post.username
         } else {
             self.usernameLabel.text = "Anonymous"
+        }
+        
+        if post.profilePicUrl != nil {
+            
+            if profileImg != nil {
+                self.profileImg.image = profileImg
+            } else {
+                
+                request = Alamofire.request(post.profilePicUrl!).validate(contentType: ["image/*"]).responseData(completionHandler: { response in
+                    
+                    if let data = response.result.value {
+                        if let img = UIImage(data: data) {
+                            self.profileImg.image = img
+                            FeedVC.imageCache.setObject(img, forKey: self.post.profilePicUrl! as AnyObject)
+                        }
+                    }
+                })
+            }
+    
+        } else {
+            self.profileImg.image = UIImage(named: "profile")
         }
         
         self.descriptionText.text = post.postDescription

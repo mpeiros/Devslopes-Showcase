@@ -15,6 +15,7 @@ class Post {
     fileprivate var _imageUrl: String?
     fileprivate var _likes: Int!
     fileprivate var _username: String?
+    fileprivate var _profilePicUrl: String?
     fileprivate var _postKey: String!
     fileprivate var _postRef: FIRDatabaseReference!
     
@@ -34,21 +35,23 @@ class Post {
         return _username
     }
     
+    var profilePicUrl: String? {
+        return _profilePicUrl
+    }
+    
     var postKey: String {
         return _postKey
     }
-    
-//    init(description: String, imageUrl: String?, username: String) {
-//        self._postDescription = description
-//        self._imageUrl = imageUrl
-//        self._username = username
-//    }
     
     init(postKey: String, dictionary: Dictionary<String, AnyObject>) {
         self._postKey = postKey
         
         if let username = dictionary["username"] as? String {
             self._username = username
+        }
+        
+        if let profilePicUrl = dictionary["profilePicUrl"] as? String {
+            self._profilePicUrl = profilePicUrl
         }
         
         if let likes = dictionary["likes"] as? Int {

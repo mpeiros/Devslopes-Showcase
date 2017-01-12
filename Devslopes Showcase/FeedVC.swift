@@ -21,6 +21,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
     var username: String?
+    var profilePicUrl: String?
     
     var imagePicker: UIImagePickerController!
     
@@ -38,14 +39,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.delegate = self
         
         postField.delegate = self
-        
-        DataService.ds.REF_USER_CURRENT.child("username").observeSingleEvent(of: .value, with: { snapshot in
-            
-            if snapshot.exists() {
-                self.username = snapshot.value! as? String
-                print("\(self.username!)")
-            }
-        })
         
         let query = DataService.ds.REF_POSTS.queryOrdered(byChild: "timestamp")
         
@@ -73,6 +66,26 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         })
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DataService.ds.REF_USER_CURRENT.child("username").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() {
+                self.username = snapshot.value! as? String
+                print("\(self.username!)")
+            }
+        })
+        
+        DataService.ds.REF_USER_CURRENT.child("profilePicUrl").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() {
+                self.profilePicUrl = snapshot.value! as? String
+                print("\(self.profilePicUrl!)")
+            }
+        })
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -95,7 +108,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 img = FeedVC.imageCache.object(forKey: url as AnyObject) as? UIImage
             }
             
-            cell.configureCell(post, img: img)
+            var profilePic: UIImage?
+            
+            if let picUrl = post.profilePicUrl {
+                profilePic = FeedVC.imageCache.object(forKey: picUrl as AnyObject) as? UIImage
+            }
+            
+            cell.configureCell(post, img: img, profileImg: profilePic)
             return cell
         } else {
             return PostCell()
@@ -177,7 +196,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if username != nil {
             post["username"] = username! as AnyObject
-        } 
+        }
+        
+        if profilePicUrl != nil {
+            post["profilePicUrl"] = profilePicUrl! as AnyObject
+        }
      
         if imgUrl != nil {
             post["imageUrl"] = imgUrl! as AnyObject
